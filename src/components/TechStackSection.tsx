@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FaTools } from "react-icons/fa";
+import { FaTools, FaDownload } from "react-icons/fa";
 
 import {
   SiPython,
@@ -21,77 +21,69 @@ import {
   SiGnubash,
   SiTailwindcss,
   SiGooglecloud,
+  SiLangchain,
+  SiMlflow,
+  SiPytorch,
 } from "react-icons/si";
 
 import { VscMcp, VscAzure } from "react-icons/vsc";
-import { FaAws, FaDownload } from "react-icons/fa6";
-
-import {
-  SiLangchaincorporate,
-  SiMlflow,
-  SiPytorch,
-  SiHelix,
-} from "react-icons/si";
-
+import { FaAws } from "react-icons/fa6";
 import { TbBrandElastic } from "react-icons/tb";
+import { SiHelix } from "react-icons/si";
 
-// ─── Skill groups ────────────────────────────────────────────────────────────
+// ─── All existing technologies ───────────────────────────────────────────────
+
+const allTools = [
+  { icon: SiPython, name: "Python" },
+  { icon: SiFastapi, name: "FastAPI" },
+  { icon: SiPostgresql, name: "PostgreSQL" },
+  { icon: SiFlask, name: "Flask" },
+  { icon: SiDjango, name: "Django" },
+  { icon: SiMysql, name: "MySQL" },
+
+  { icon: SiTypescript, name: "TypeScript" },
+  { icon: SiReact, name: "React" },
+  { icon: SiTailwindcss, name: "Tailwind CSS" },
+  { icon: SiNodedotjs, name: "Node.js" },
+  { icon: SiCplusplus, name: "C++" },
+  { icon: SiGnubash, name: "Bash" },
+
+  { icon: SiPytorch, name: "PyTorch" },
+  { icon: VscMcp, name: "MCP" },
+  { icon: SiLangchain, name: "LangChain" },
+  { icon: SiMlflow, name: "MLflow" },
+  { icon: TbBrandElastic, name: "Elasticsearch" },
+  { icon: SiHelix, name: "Strands SDK" },
+
+  { icon: FaAws, name: "AWS" },
+  { icon: SiDocker, name: "Docker" },
+  { icon: SiKubernetes, name: "Kubernetes" },
+  { icon: SiGit, name: "Git" },
+  { icon: VscAzure, name: "Azure" },
+  { icon: SiGooglecloud, name: "GCP" },
+];
+
+// ─── 3 Cards ────────────────────────────────────────────────────────────────
+//
+// Each card visually contains:
+//
+// 6 icon positions LEFT
+//          |
+//          | partition
+//          |
+// 6 icon positions RIGHT
+//
+// We retain all 24 existing technologies without inventing new ones.
 
 const skillGroups = [
   {
-    tools: [
-      { icon: SiPython, name: "Python" },
-      { icon: SiFastapi, name: "FastAPI" },
-      { icon: SiPostgresql, name: "PostgreSQL" },
-      { icon: SiFlask, name: "Flask" },
-      { icon: SiDjango, name: "Django" },
-      { icon: SiMysql, name: "MySQL" },
-    ],
-    capability:
-      "Backend services and API driven applications with structured application logic, database design, authentication, asynchronous processing & secure data access.",
-    reverse: false,
+    left: allTools.slice(0, 6),
+    right: allTools.slice(6, 12),
   },
 
   {
-    tools: [
-      { icon: SiTypescript, name: "TypeScript" },
-      { icon: SiReact, name: "React" },
-      { icon: SiTailwindcss, name: "Tailwind CSS" },
-      { icon: SiNodedotjs, name: "Node.js" },
-      { icon: SiCplusplus, name: "C++" },
-      { icon: SiGnubash, name: "Bash" },
-    ],
-    capability:
-      "Complete application interfaces and supporting services, integrate frontend applications with APIs & work across application & system level code using TypeScript, Node.js, C++ & Bash.",
-    reverse: true,
-  },
-
-  {
-    tools: [
-      { icon: SiPytorch, name: "PyTorch" },
-      { icon: VscMcp, name: "MCP" },
-      { icon: SiLangchaincorporate, name: "LangChain" },
-      { icon: SiMlflow, name: "MLflow" },
-      { icon: TbBrandElastic, name: "Elasticsearch" },
-      { icon: SiHelix, name: "Strands SDK" },
-    ],
-    capability:
-      "AI and agentic applications with model inference, agent orchestration, tool integration, retrieval workflows, model tracking & ML prediction pipelines.",
-    reverse: false,
-  },
-
-  {
-    tools: [
-      { icon: FaAws, name: "AWS" },
-      { icon: SiDocker, name: "Docker" },
-      { icon: SiKubernetes, name: "Kubernetes" },
-      { icon: SiGit, name: "Git" },
-      { icon: VscAzure, name: "Azure" },
-      { icon: SiGooglecloud, name: "GCP" },
-    ],
-    capability:
-      "Deploy cloud based applications using containerized services, cloud infrastructure, orchestration, version controlled workflows & scalable deployment environments.",
-    reverse: true,
+    left: allTools.slice(12, 18),
+    right: allTools.slice(18, 24),
   },
 ];
 
@@ -142,7 +134,7 @@ const TechStackSection: React.FC = () => {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* ── Section Header ── */}
+        {/* Section Header */}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -159,7 +151,7 @@ const TechStackSection: React.FC = () => {
           </h2>
         </motion.div>
 
-        {/* ── Main Tech Stack Card ── */}
+        {/* Main Tech Stack Card */}
 
         <div
           className="
@@ -174,10 +166,26 @@ const TechStackSection: React.FC = () => {
             shadow-xl
           "
         >
-          {/* ── Card Header ── */}
+
+          {/* Header */}
 
           <div className="flex items-center mb-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-900 via-teal-900 to-black rounded-xl flex items-center justify-center shadow-inner border border-cyan-700/50">
+            <div
+              className="
+                w-12 h-12
+                bg-gradient-to-br
+                from-cyan-900
+                via-teal-900
+                to-black
+                rounded-xl
+                flex
+                items-center
+                justify-center
+                shadow-inner
+                border
+                border-cyan-700/50
+              "
+            >
               <FaTools className="w-6 h-6 text-white" />
             </div>
 
@@ -192,12 +200,13 @@ const TechStackSection: React.FC = () => {
             </div>
           </div>
 
-          {/* ── Skill Groups ── */}
+          {/* 3 Cards */}
 
           <div className="space-y-6">
-            {skillGroups.map((group) => (
+
+            {skillGroups.map((group, groupIndex) => (
               <motion.div
-                key={group.tools.map((tool) => tool.name).join("-")}
+                key={groupIndex}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{
@@ -223,21 +232,32 @@ const TechStackSection: React.FC = () => {
                   duration-300
                 "
               >
+
+                {/* Desktop / Mobile Card Structure */}
+
                 <div
-                  className={`
+                  className="
                     flex
                     flex-col
                     lg:flex-row
-                    items-center
-                    gap-6
-                    ${group.reverse ? "lg:flex-row-reverse" : ""}
-                  `}
+                    items-stretch
+                    gap-4
+                  "
                 >
-                  {/* ── Tools ── */}
 
-                  <div className="w-full lg:w-1/2">
-                    <div className="grid grid-cols-3 gap-3 justify-items-center">
-                      {group.tools.map((tool) => (
+                  {/* LEFT SIDE */}
+
+                  <div className="flex-1">
+
+                    <div
+                      className="
+                        grid
+                        grid-cols-3
+                        gap-3
+                        justify-items-center
+                      "
+                    >
+                      {group.left.map((tool) => (
                         <ToolCard
                           key={tool.name}
                           icon={tool.icon}
@@ -245,34 +265,59 @@ const TechStackSection: React.FC = () => {
                         />
                       ))}
                     </div>
+
                   </div>
 
-                  {/* ── Center Divider ── */}
+                  {/* PARTITION LINE */}
 
-                  <div className="hidden lg:block w-px self-stretch bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                  <div
+                    className="
+                      h-px
+                      w-full
+                      lg:h-auto
+                      lg:w-px
+                      flex-shrink-0
+                      self-stretch
+                      bg-gradient-to-r
+                      from-transparent
+                      via-white/20
+                      to-transparent
+                      lg:bg-gradient-to-b
+                    "
+                  />
 
-                  {/* ── Capability ── */}
+                  {/* RIGHT SIDE */}
 
-                  <div className="w-full lg:w-1/2 flex items-center">
-                    <div className="px-2 sm:px-4 lg:px-6">
-                      <div className="flex items-start gap-3 mb-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                          What I Can Build
-                        </h4>
-                      </div>
+                  <div className="flex-1">
 
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                        {group.capability}
-                      </p>
+                    <div
+                      className="
+                        grid
+                        grid-cols-3
+                        gap-3
+                        justify-items-center
+                      "
+                    >
+                      {group.right.map((tool) => (
+                        <ToolCard
+                          key={tool.name}
+                          icon={tool.icon}
+                          name={tool.name}
+                        />
+                      ))}
                     </div>
+
                   </div>
+
                 </div>
+
               </motion.div>
             ))}
+
           </div>
         </div>
 
-        {/* ── Resume Button ── */}
+        {/* Resume Button */}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -310,6 +355,9 @@ const TechStackSection: React.FC = () => {
               background: "#000000",
             }}
           >
+
+            {/* Border */}
+
             <span
               className="absolute rounded-full pointer-events-none"
               style={{
@@ -319,6 +367,8 @@ const TechStackSection: React.FC = () => {
               }}
             />
 
+            {/* Black background */}
+
             <span
               className="absolute inset-0 rounded-full pointer-events-none"
               style={{
@@ -326,8 +376,16 @@ const TechStackSection: React.FC = () => {
               }}
             />
 
+            {/* Glow */}
+
             <span
-              className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+              className="
+                absolute
+                left-1/2
+                -translate-x-1/2
+                rounded-full
+                pointer-events-none
+              "
               style={{
                 top: "-6px",
                 bottom: "20%",
@@ -344,8 +402,10 @@ const TechStackSection: React.FC = () => {
             <span className="relative z-10">
               Resume
             </span>
+
           </motion.a>
         </motion.div>
+
       </div>
     </section>
   );
