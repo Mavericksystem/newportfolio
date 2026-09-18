@@ -102,9 +102,7 @@ const ProjectsSection: React.FC = () => {
           transition={{ duration: 0.7 }}
           className="mb-14 text-center"
         >
-          <p className="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
-            Selected Work
-          </p>
+
 
           <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
             Featured{" "}
