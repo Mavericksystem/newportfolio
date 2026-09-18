@@ -5,6 +5,12 @@ import {
   Github,
   ArrowUpRight,
 } from "lucide-react";
+import projectImage1 from "../../assets/1.webp";
+import projectImage2 from "../../assets/2.webp";
+import projectImage3 from "../../assets/3.webp";
+import projectImage4 from "../../assets/4.webp";
+import projectImage5 from "../../assets/5.webp";
+import projectImage6 from "../../assets/6.webp";
 
 const ProjectsSection: React.FC = () => {
   const projects = [
@@ -14,7 +20,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "Machine learning platform predicting Formula 1 race outcomes using telemetry, qualifying data, driver form, weather, and strategy modeling.",
       technologies: ["Python", "React", "FastAPI", "XGBoost"],
-      image: "/assets/1.webp",
+      image: projectImage1,
       github: "https://github.com/Maverick7t/raceprediction",
       site: "https://raceprediction.vercel.app/predictions",
       size: "large",
@@ -26,7 +32,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "Agentic stock intelligence platform that explains market movements using multi-source data, tool calling, and semantic retrieval.",
       technologies: ["Python", "FastAPI", "PostgreSQL", "MCP"],
-      image: "/assets/2.webp",
+      image: projectImage2,
       github: "https://github.com/Maverick7t/stock_research",
       site: "https://stockmarketmind.vercel.app/",
       size: "small",
@@ -38,7 +44,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "Developer intelligence platform designed to analyze and surface useful insights for developers.",
       technologies: ["Python", "AI", "FastAPI"],
-      image: "/assets/3.webp",
+      image: projectImage3,
       github: "https://github.com/Mavericksystem/Google_Hackathon_2025",
       site: "#",
       size: "medium",
@@ -50,7 +56,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "AI-powered application focused on intelligent automation and agent-based workflows.",
       technologies: ["Python", "AI", "FastAPI"],
-      image: "/assets/4.webp",
+      image: projectImage4,
       github: "https://github.com/Mavericksystem/aws_hackathon_2025",
       site: "#",
       size: "medium",
@@ -62,7 +68,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "AI-powered reading assistant designed to help users understand and process content before diving into it.",
       technologies: ["Python", "AI", "FastAPI"],
-      image: "/assets/5.webp",
+      image: projectImage5,
       github: "https://github.com/Mavericksystem/Read_Before_Read",
       site: "#",
       size: "small",
@@ -74,7 +80,7 @@ const ProjectsSection: React.FC = () => {
       description:
         "AI chatbot application designed to provide an interactive interface for accessing and understanding medical information.",
       technologies: ["Python", "AI", "FastAPI"],
-      image: "/assets/6.webp",
+      image: projectImage6,
       github: "#",
       site: "#",
       size: "large",
