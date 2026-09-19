@@ -31,8 +31,8 @@ const Navigation = () => {
     { name: 'Home', href: '#home', icon: Home },
 
     { name: 'Experience', href: '#experience', icon: Briefcase },
-    { name: 'Skills', href: '#tech-stack', icon: LiaToolsSolid },
     { name: 'Projects', href: '#projects', icon: FolderOpen },
+    { name: 'Skills', href: '#tech-stack', icon: LiaToolsSolid },
     { name: 'Achievements', href: '#achievements', icon: Award },
     { name: 'Dev ', href: '#devpost', icon: Rocket },
     { name: 'Blog', href: '#blog', icon: BookOpen },
