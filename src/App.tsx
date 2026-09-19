@@ -1,8 +1,8 @@
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
+import ExperienceSection from './components/ExperienceSection';
 import TechStackSection from './components/TechStackSection';
 import AboutSection from './components/AboutSection';
-import ExperienceSection from './components/ExperienceSection';
 import ProjectsSection from './components/ProjectsSection';
 import AchievementsSection from './components/AchievementsSection';
 import DevpostSection from './components/DevArena.tsx';
@@ -14,24 +14,20 @@ import ContactSection from './components/ContactSection';
 function App() {
   return (
     <div className="relative">
-      {/* Fixed background layer — fully decoupled from content flow */}
+
       <div
-        className="fixed inset-0 -z-10"
-        style={{
-          backgroundImage: 'url(/background.png)',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
+        aria-hidden="true"
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/background.png')" }}
       />
 
       <Navigation />
 
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <ExperienceSection />
-        <TechStackSection />
         <ProjectsSection />
+        <TechStackSection />
         <AchievementsSection />
         <DevpostSection />
         <BlogSection />
@@ -40,7 +36,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/30 py-8">
+      <footer className="relative z-10 border-t border-white/20 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400">
