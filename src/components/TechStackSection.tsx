@@ -63,17 +63,6 @@ const allTools = [
   { icon: SiGooglecloud, name: "GCP" },
 ];
 
-// ─── 3 Cards ────────────────────────────────────────────────────────────────
-//
-// Each card visually contains:
-//
-// 6 icon positions LEFT
-//          |
-//          | partition
-//          |
-// 6 icon positions RIGHT
-//
-// We retain all 24 existing technologies without inventing new ones.
 
 const skillGroups = [
   {
@@ -155,6 +144,7 @@ const TechStackSection: React.FC = () => {
 
         <div
           className="
+            relative
             w-full
             bg-white/20
             dark:bg-gray-800/20
@@ -167,38 +157,13 @@ const TechStackSection: React.FC = () => {
           "
         >
 
-          {/* Header */}
-
-          <div className="flex items-center mb-10">
-            <div
-              className="
-                w-12 h-12
-                bg-gradient-to-br
-                from-cyan-900
-                via-teal-900
-                to-black
-                rounded-xl
-                flex
-                items-center
-                justify-center
-                shadow-inner
-                border
-                border-cyan-700/50
-              "
-            >
-              <FaTools className="w-6 h-6 text-white" />
-            </div>
-
-            <div className="ml-4">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                Tech Stack
-              </h3>
-
-              <p className="text-gray-600 dark:text-gray-400">
-                Tools &amp; Technologies I Use
-              </p>
+          <div className="absolute -top-6 left-8 z-30">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-gray-800 to-gray-600 shadow-lg">
+              <FaTools className="h-6 w-6 text-white" />
             </div>
           </div>
+
+
 
           {/* 3 Cards */}
 
