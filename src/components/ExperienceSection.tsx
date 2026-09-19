@@ -1,143 +1,66 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, MapPin, CheckCircle } from 'lucide-react';
-import { MdOutlineWorkHistory } from 'react-icons/md';
+import React from "react";
+import { motion } from "framer-motion";
+import { Calendar, MapPin, CheckCircle } from "lucide-react";
+import { MdOutlineWorkHistory } from "react-icons/md";
+import iitDharwadImage from "../../assets/IIT DHARWAD.tuxpi.jpg";
 
 const ExperienceSection: React.FC = () => {
-  const experience = {
-    title: "ML Intern",
-    company: "IIT Dharwad",
-    duration: "2nd Feb 2024 - 2 Sep 2024",
-    location: "IIT Dharwad",
-    highlights: [
-      "Designed and implemented scalable ETL pipelines to process over 1 million multilingual audio records, ensuring data.",
-      "Automated end-to-end data workflows using Python and Bash scripts, streamlining extraction, transformation, and loading from raw audio files into structured formats optimized for machine learning model training.",
-      "Managed and troubleshot development environments across 10 Ubuntu Linux machines, ensuring consistent tooling, dependencies, and seamless team collaboration.",
-      "Containerized data processing workflows using Docker, enabling reproducible deployments and following DevOps best practices for scalable data operations.",
-    ]
-  };
+  const highlights = [
+    "Implemented the wav2vec 2.0 architecture in Fairseq & PyTorch and built an end-to-end speech translation pipeline for processing 10M+ raw audio samples.",
+    "Improved the pipeline's BLEU score from 2 to 5, iterating across data preprocessing, feature extraction, model training, and inference to improve translation quality.",
+  ];
 
   return (
-    <section id="experience" className="py-20 relative overflow-hidden">
-      {/* Background overlay removed - using global background from App.tsx */}
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+    <section id="experience" className="relative overflow-hidden py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="mb-16 text-center text-4xl font-bold text-white sm:text-5xl"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Work <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Experience</span>
-          </h2>
-          {/* <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Professional Journey and key Contributions
-          </p> */}
-        </motion.div>
+          Work <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Experience</span>
+        </motion.h2>
 
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            whileHover={{ scale: 1.03 }}
-            className="relative bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/30 dark:border-gray-700/40"
-          >
-            {/* Company Logo/Icon */}
-            <div className="absolute -top-6 left-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <MdOutlineWorkHistory className="w-6 h-6 text-white" />
-              </div>
+        <motion.article
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -8, scale: 1.01 }}
+          className="group relative overflow-visible rounded-3xl border border-white/10 bg-black shadow-2xl"
+        >
+          <div className="absolute -top-6 left-8 z-30">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-gray-800 to-gray-600 shadow-lg">
+              <MdOutlineWorkHistory className="h-6 w-6 text-white" />
             </div>
+          </div>
 
-            {/* Header */}
-            <div className="mb-6 pt-4">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                    {experience.title}
-                  </h3>
-                  <p className="text-xl text-blue-600 dark:text-blue-400 font-semibold">
-                    {experience.company}
-                  </p>
-                </div>
-                <div className="mt-2 sm:mt-0 text-right">
-                  <div className="inline-flex items-center px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
-                    Recent Work
-                  </div>
-                </div>
+          <div className="hidden overflow-hidden rounded-3xl md:grid md:grid-cols-2">
+            <div className="flex flex-col justify-center p-8 lg:p-10">
+              <h3 className="text-3xl font-bold text-white">ML Intern</h3>
+              <p className="mt-1 text-lg font-semibold text-white/70">IIT Dharwad</p>
+              <div className="my-7 flex flex-wrap gap-5 text-sm text-white/55">
+                <span className="flex items-center gap-2"><Calendar className="h-4 w-4" />2nd Feb 2024 - 30 Jan 2025</span>
+                <span className="flex items-center gap-2"><MapPin className="h-4 w-4" />IIT Dharwad</span>
               </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-gray-600 dark:text-gray-400">
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span>{experience.duration}</span>
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  <span>{experience.location}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Highlights */}
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Key Achievements & Responsibilities
-              </h4>
               <div className="space-y-4">
-                {experience.highlights.map((highlight, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-start space-x-3 group"
-                  >
-                    <div className="flex-shrink-0 mt-1">
-                      <CheckCircle className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform duration-200" />
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-200">
-                      {highlight}
-                    </p>
-                  </motion.div>
-                ))}
+                {highlights.map((highlight) => <div key={highlight} className="flex items-start gap-3"><CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-white/45" /><p className="text-sm leading-relaxed text-white/75">{highlight}</p></div>)}
               </div>
             </div>
+            <div className="relative min-h-[520px] overflow-hidden bg-black">
+              <img src={iitDharwadImage} alt="IIT Dharwad" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+          </div>
 
-            {/* Technologies Used */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700"
-            >
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Technologies & Tools
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {['Python', 'Pytorch', 'TensorFlow', 'Jupyter', 'Linux', 'NVIDIA A100 GPU'].map((tech, index) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800 cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+          <div className="min-h-[560px] rounded-3xl bg-black p-6 md:hidden sm:p-8">
+            <div className="flex h-full min-h-[500px] flex-col justify-end">
+              <h3 className="text-3xl font-bold text-white">ML Intern</h3>
+              <p className="mt-1 text-lg font-semibold text-white/70">IIT Dharwad</p>
+              <div className="my-6 space-y-3 text-sm text-white/60"><p className="flex items-center gap-2"><Calendar className="h-4 w-4" />2nd Feb 2024 - 2 Sep 2024</p><p className="flex items-center gap-2"><MapPin className="h-4 w-4" />IIT Dharwad</p></div>
+              <div className="space-y-4">{highlights.map((highlight) => <div key={highlight} className="flex items-start gap-3"><CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-white/50" /><p className="text-sm leading-relaxed text-white/75">{highlight}</p></div>)}</div>
+            </div>
+          </div>
+        </motion.article>
       </div>
     </section>
   );
