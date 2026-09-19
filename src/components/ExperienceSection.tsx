@@ -49,11 +49,12 @@ const ExperienceSection: React.FC = () => {
             </div>
             <div className="relative min-h-[520px] overflow-hidden bg-black">
               <img src={iitDharwadImage} alt="IIT Dharwad" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent" />
             </div>
           </div>
 
-          <div className="min-h-[560px] rounded-3xl bg-black p-6 md:hidden sm:p-8">
-            <div className="flex h-full min-h-[500px] flex-col justify-end">
+          <div className="rounded-3xl bg-black p-6 pt-14 md:hidden sm:p-8 sm:pt-16">
+            <div className="flex flex-col justify-start">
               <h3 className="text-3xl font-bold text-white">ML Intern</h3>
               <p className="mt-1 text-lg font-semibold text-white/70">IIT Dharwad</p>
               <div className="my-6 space-y-3 text-sm text-white/60"><p className="flex items-center gap-2"><Calendar className="h-4 w-4" />2nd Feb 2024 - 2 Sep 2024</p><p className="flex items-center gap-2"><MapPin className="h-4 w-4" />IIT Dharwad</p></div>
