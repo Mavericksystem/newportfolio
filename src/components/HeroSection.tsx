@@ -1,83 +1,112 @@
 "use client";
-import { useEffect } from "react";
+
+import { useEffect, useRef } from "react";
 import { FaLinkedinIn } from "react-icons/fa6";
-import { motion, useAnimation } from "framer-motion";
-import TextType from "@/components/ui/TextType";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
+
+gsap.registerPlugin(TextPlugin);
 
 const HeroSection = () => {
-  const controls = useAnimation(); // ← for controlling TextType
-
-  const descriptiveText = [
-    "Actively seeking opportunities In Agentic AI, Backend Engineering and Fullstack Development.",
-  ];
+  const wordRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      controls.start({ opacity: 1 }); // ← trigger fade-in of TextType manually
-    }, 1600); // wait till both h1 (0.3+0.8) and h2 (0.6+0.8)
+    if (!wordRef.current) return;
 
-    return () => clearTimeout(timeout);
-  }, [controls]);
+    const words = ["Build", "Scale", "Architect"];
+    const element = wordRef.current;
+
+    const context = gsap.context(() => {
+      const timeline = gsap.timeline({ repeat: -1, repeatDelay: 0.2 });
+
+      words.forEach((word) => {
+        timeline.to(element, {
+          duration: 1.8,
+          text: {
+            value: word,
+            delimiter: "",
+          },
+          ease: "none",
+        });
+
+        timeline.to({}, { duration: 1.5 });
+
+        timeline.to(element, {
+          duration: 0.6,
+          text: {
+            value: "01010#$%@",
+            delimiter: "",
+          },
+          ease: "none",
+        });
+
+        timeline.to({}, { duration: 0.3 });
+      });
+    }, wordRef);
+
+    return () => context.revert();
+  }, []);
 
   return (
     <section
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
+      <video
+        aria-hidden="true"
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/background.png"
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/backgroundv.mp4" type="video/mp4" />
+      </video>
 
       {/* Responsive overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/10 sm:bg-black/15 md:bg-black/20 lg:bg-black/20" />
+      <div className="absolute inset-0 bg-black/40 sm:bg-black/45 md:bg-black/50 lg:bg-black/55" />
 
-      <div className="relative z-10 text-center px-4 sm:px-8">
-        <motion.h1
-          initial={{ opacity: 0, y: 100 }}
+      <div className="relative z-10 w-full max-w-7xl px-6 text-left sm:px-10 lg:px-12">
+
+        {/* Small role label */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className="mt-16 text-6xl md:text-8xl lg:text-[9rem] tracking-tight"
-          style={{
-            fontFamily: "NexusStroke",
-            lineHeight: 1,
-            letterSpacing: '0.01em',
-            backgroundImage: 'radial-gradient(89.47% 51.04% at 44.27% 50%, #e2e3e9 0%, #d4d6de 52.73%, #3d3f4c 100%)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            fontWeight: 300,
-            maxWidth: '100%',
-            paddingBottom: '.625rem',
-            WebkitFontSmoothing: 'antialiased',
-          }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="mb-6 text-sm font-medium tracking-[0.18em] text-zinc-300 uppercase"
         >
+          AI Engineer · Backend
+        </motion.div>
 
-          <span style={{ fontSize: "clamp(3.25rem, 10.5vw, 11rem)" }}>M</span>
-          <span style={{ fontSize: "clamp(2rem, 6.5vw, 8rem)" }}>OINAKTAR</span>
-          &nbsp;
-          <span style={{ fontSize: "clamp(3.25rem, 10.5vw, 11rem)" }}>S</span>
-          <span style={{ fontSize: "clamp(2rem, 6.5vw, 8rem)" }}>HAIKH</span>
-
-        </motion.h1>
-
-        <motion.h2
+        {/* Main Hero */}
+        <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-          className="text-xl md:text-3xl text-zinc-300 mt-4"
+          transition={{ delay: 0.35, duration: 0.8, ease: "easeOut" }}
+          className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight text-zinc-100 sm:text-6xl md:text-7xl lg:text-8xl"
         >
-          Software Engineer
-        </motion.h2>
+          <span className="block">
+            I{" "}
+            <span
+              ref={wordRef}
+              className="inline-block min-w-[9ch] bg-gradient-to-r from-cyan-300 via-sky-400 to-teal-300 bg-clip-text font-mono text-transparent"
+            >
+              01010#$%@
+            </span>
+          </span>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
-          className="mt-6 max-w-2xl mx-auto px-6 md:px-0 text-zinc-400 text-base md:text-lg leading-relaxed"
-        >
-          AWS Certified Solutions Architect Associate.
-          <span className="block md:inline"> Building AI backend systems, agentic applications, ML prediction systems & full stack products.</span>
-        </motion.p>
+          <span className="block">
+            Products
+          </span>
+        </motion.h1>
 
-        <div className="mt-11 flex flex-col items-center">
-          {/* LinkedIn Button */}
+        {/* Existing description */}
+
+
+        <div className="mt-11 flex flex-col items-start">
+          {/* LinkedIn Button — untouched */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -134,7 +163,7 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
-    </section >
+    </section>
   );
 };
 
