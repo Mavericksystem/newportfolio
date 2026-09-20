@@ -67,9 +67,8 @@ const HeroSection = () => {
         playsInline
         poster="/background.png"
         onCanPlay={() => setVideoReady(true)}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
-          videoReady ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${videoReady ? "opacity-100" : "opacity-0"
+          }`}
       >
         <source src="/backgroundv.mp4" type="video/mp4" />
       </video>
