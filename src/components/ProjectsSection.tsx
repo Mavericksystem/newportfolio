@@ -18,7 +18,7 @@ const ProjectsSection: React.FC = () => {
       id: 1,
       name: "Race Prediction",
       description:
-        "Machine learning platform predicting Formula 1 race outcomes using telemetry, qualifying data, driver form, weather, and strategy modeling.",
+        "Machine learning platform predicting Formula 1 race outcomes using telemetry, qualifying data, driver form, weather and strategy modeling.",
       technologies: ["Python", "React", "FastAPI", "XGBoost"],
       image: projectImage1,
       github: "https://github.com/Maverick7t/raceprediction",
@@ -30,7 +30,7 @@ const ProjectsSection: React.FC = () => {
       id: 2,
       name: "Market Mind",
       description:
-        "Agentic stock intelligence platform that explains market movements using multi-source data, tool calling, and semantic retrieval.",
+        "Agentic stock intelligence platform that explains market movements using multi source data, tool calling and semantic retrieval.",
       technologies: ["Python", "FastAPI", "PostgreSQL", "MCP"],
       image: projectImage2,
       github: "https://github.com/Maverick7t/stock_research",
@@ -42,7 +42,7 @@ const ProjectsSection: React.FC = () => {
       id: 3,
       name: "Dev Insight",
       description:
-        "Developer intelligence platform designed to analyze and surface useful insights for developers.",
+        "Developer intelligence platform designed to analyze and surface useful insights for developers from there github repo.",
       technologies: ["Python", "AI", "FastAPI"],
       image: projectImage3,
       github: "https://github.com/Mavericksystem/Google_Hackathon_2025",
@@ -54,7 +54,7 @@ const ProjectsSection: React.FC = () => {
       id: 4,
       name: "Raven AI",
       description:
-        "AI-powered application focused on intelligent automation and agent-based workflows.",
+        "AI powered job application monitoring, automation and agentic workflow from your mail box.",
       technologies: ["Python", "AI", "FastAPI"],
       image: projectImage4,
       github: "https://github.com/Mavericksystem/aws_hackathon_2025",
@@ -66,7 +66,7 @@ const ProjectsSection: React.FC = () => {
       id: 5,
       name: "Read Before Read",
       description:
-        "AI-powered reading assistant designed to help users understand and process content before diving into it.",
+        "AI powered reading assistant designed to help users understand and process content before diving into it.",
       technologies: ["Python", "AI", "FastAPI"],
       image: projectImage5,
       github: "https://github.com/Mavericksystem/Read_Before_Read",
