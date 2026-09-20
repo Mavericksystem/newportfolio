@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import gsap from "gsap";
@@ -10,6 +10,7 @@ gsap.registerPlugin(TextPlugin);
 
 const HeroSection = () => {
   const wordRef = useRef<HTMLSpanElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     if (!wordRef.current) return;
@@ -53,6 +54,11 @@ const HeroSection = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/background.png')" }}
+      />
       <video
         aria-hidden="true"
         autoPlay
@@ -60,7 +66,10 @@ const HeroSection = () => {
         muted
         playsInline
         poster="/background.png"
-        className="absolute inset-0 h-full w-full object-cover"
+        onCanPlay={() => setVideoReady(true)}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
       >
         <source src="/backgroundv.mp4" type="video/mp4" />
       </video>
