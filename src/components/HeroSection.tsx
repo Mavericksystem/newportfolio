@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const wordRef = useRef<HTMLSpanElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     if (!wordRef.current) return;
@@ -130,21 +129,10 @@ const HeroSection = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      <video
-        aria-hidden="true"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        onCanPlay={() => setVideoReady(true)}
-        className={`absolute inset-0 h-full w-full object-cover bg-black transition-opacity duration-1000 ease-out ${videoReady ? "opacity-100" : "opacity-0"
-          }`}
-      >
-        <source src="/backgroundv.mp4" type="video/mp4" />
-      </video>
-
-      {/* Responsive overlay for better text readability */}
+      {/* No local video here anymore — the app-level fixed video in App.tsx
+          shows through behind this section and blurs/fades as the user
+          scrolls past Home. This overlay just keeps the text readable
+          against it. */}
       <div className="absolute inset-0 bg-black/40 sm:bg-black/45 md:bg-black/50 lg:bg-black/55" />
 
       <div className="relative z-10 w-full max-w-7xl px-6 text-left sm:px-10 lg:px-12">
