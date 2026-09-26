@@ -13,10 +13,15 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { LiaToolsSolid } from "react-icons/lia";
+import { openCalModal, useCalEmbedScript, CAL_LINKS } from '../lib/cal-embed';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Loaded here so the popup can open instantly on first tap, on both
+  // mobile and desktop — window.Cal queues calls even before the actual
+  // script tag has finished loading.
+  useCalEmbedScript();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +30,16 @@ const Navigation = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close the mobile menu once the Cal.com popup is dismissed, instead of
+  // closing it at the moment the popup opens. Closing the menu synchronously
+  // in the same click that opens the modal was racing the mobile menu's own
+  // close animation on-device and the modal never actually appeared.
+  useEffect(() => {
+    const handleCalClosed = () => setIsOpen(false);
+    window.addEventListener('cal:embed-closed', handleCalClosed);
+    return () => window.removeEventListener('cal:embed-closed', handleCalClosed);
   }, []);
 
   const navItems = [
@@ -48,6 +63,17 @@ const Navigation = () => {
       }
     }, 100);
     setIsOpen(false);
+  };
+
+  // "Contact" opens the Cal.com video-call popup directly (not via
+  // data-cal-link) because the mobile menu button only exists in the DOM
+  // while the menu is open — Cal's script only auto-binds elements present
+  // at the moment it finishes loading, so a conditionally-rendered button
+  // like this one never gets bound that way. We deliberately do NOT close
+  // the mobile menu here; it closes on its own once the popup is dismissed
+  // (see the cal:embed-closed listener above).
+  const handleContactTap = () => {
+    openCalModal(CAL_LINKS.videoCall);
   };
 
   return (
@@ -113,7 +139,9 @@ const Navigation = () => {
                   key={item.name}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => handleNavigation(item.href)}
+                  onClick={() =>
+                    item.name === 'Contact' ? handleContactTap() : handleNavigation(item.href)
+                  }
                   className="px-4 py-2 rounded-lg text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/10 dark:hover:bg-gray-800/10 transition-all duration-200 flex items-center space-x-2 group"
                 >
                   <item.icon className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
@@ -158,7 +186,9 @@ const Navigation = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    onClick={() => handleNavigation(item.href)}
+                    onClick={() =>
+                      item.name === 'Contact' ? handleContactTap() : handleNavigation(item.href)
+                    }
                     className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/10 dark:hover:bg-gray-800/10 transition-all duration-200 group"
                   >
                     <item.icon className="w-5 h-5 group-hover:rotate-12 transition-transform duration-200" />
