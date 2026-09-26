@@ -3,10 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-
-gsap.registerPlugin(TextPlugin);
 
 const HeroSection = () => {
   const wordRef = useRef<HTMLSpanElement>(null);
@@ -15,38 +11,117 @@ const HeroSection = () => {
   useEffect(() => {
     if (!wordRef.current) return;
 
-    const words = ["Build", "Scale", "Architect"];
     const element = wordRef.current;
 
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline({ repeat: -1, repeatDelay: 0.2 });
+    const chars = "!<>\\/[]{}=+*^?#01";
+    let frameId: number;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let frame = 0;
+    let currentText = element.innerText;
+    let running = true;
 
-      words.forEach((word) => {
-        timeline.to(element, {
-          duration: 1.8,
-          text: {
-            value: word,
-            delimiter: "",
-          },
-          ease: "none",
-        });
+    const randomChar = () =>
+      chars[Math.floor(Math.random() * chars.length)];
 
-        timeline.to({}, { duration: 1.5 });
+    // Tuning knobs for the cascade effect
+    const CHAR_STAGGER = 18; // frames between each character starting to scramble
+    const SCRAMBLE_LENGTH = 40; // frames each character stays scrambling before locking in
+    const GLITCH_SWAP_EVERY = 41; // swap the glitch character every N frames
 
-        timeline.to(element, {
-          duration: 0.6,
-          text: {
-            value: "01010#$%@",
-            delimiter: "",
-          },
-          ease: "none",
-        });
+    const scrambleTo = (newText: string): Promise<void> => {
+      const oldText = currentText;
+      const length = Math.max(oldText.length, newText.length);
 
-        timeline.to({}, { duration: 0.3 });
+
+      const queue = Array.from({ length }, (_, i) => {
+        const from = oldText[i] || "";
+        const to = newText[i] || "";
+        const start = i * CHAR_STAGGER;
+        const end = start + SCRAMBLE_LENGTH;
+
+        return {
+          from,
+          to,
+          start,
+          end,
+          char: "",
+        };
       });
-    }, wordRef);
 
-    return () => context.revert();
+      frame = 0;
+
+      return new Promise((resolve) => {
+        const update = () => {
+          // Bail out cleanly if the component unmounted mid-animation.
+          if (!running) {
+            resolve();
+            return;
+          }
+
+          let output = "";
+          let complete = 0;
+
+          for (let i = 0; i < queue.length; i++) {
+            const item = queue[i];
+
+            if (frame >= item.end) {
+              // Locked in on the final character for this position.
+              complete++;
+              if (item.to) {
+                output += item.to;
+              }
+            } else if (frame >= item.start) {
+              if (!item.char || frame % GLITCH_SWAP_EVERY === 0) {
+                item.char = randomChar();
+              }
+              output += `<span class="scramble-glitch">${item.char}</span>`;
+            } else {
+              // Hasn't started scrambling yet — still showing the old char.
+              if (item.from) {
+                output += item.from;
+              }
+            }
+          }
+
+          element.innerHTML = output;
+
+          if (complete === queue.length) {
+            currentText = newText;
+            element.innerText = newText;
+            resolve();
+            return;
+          }
+
+          frame++;
+          frameId = requestAnimationFrame(update);
+        };
+
+        update();
+      });
+    };
+
+    const words = ["Build", "Architect", "Scale"];
+    let index = 0;
+
+    const next = async () => {
+      if (!running) return;
+
+      await scrambleTo(words[index]);
+
+      if (!running) return;
+
+      index = (index + 1) % words.length;
+
+      timeoutId = setTimeout(next, 1800);
+    };
+
+    next();
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(frameId);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
@@ -65,6 +140,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
+        preload="auto"
         poster="/background.png"
         onCanPlay={() => setVideoReady(true)}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${videoReady ? "opacity-100" : "opacity-0"
@@ -97,12 +173,16 @@ const HeroSection = () => {
         >
           <span className="block">
             I{" "}
+            {/* aria-hidden + sr-only fallback: screen readers get the clean
+                word list instead of scrambling glitch characters. */}
             <span
               ref={wordRef}
-              className="inline-block min-w-[9ch] bg-gradient-to-r from-cyan-300 via-sky-400 to-teal-300 bg-clip-text font-mono text-transparent"
+              aria-hidden="true"
+              className="inline-block min-w-[10ch] bg-gradient-to-r from-cyan-300 via-sky-400 to-teal-300 bg-clip-text font-mono text-transparent"
             >
-              01010#$%@
+              Build
             </span>
+            <span className="sr-only">Build, Architect, Scale</span>
           </span>
 
           <span className="block">
