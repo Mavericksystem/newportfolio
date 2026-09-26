@@ -12,7 +12,7 @@ const HeroSection = () => {
 
     const element = wordRef.current;
 
-    const chars = "!<>-_\\/[]{}—=+*^?#________";
+    const chars = "!<>1=+0*^1?#0";
     let frameId: number;
     let timeoutId: ReturnType<typeof setTimeout>;
     let frame = 0;
