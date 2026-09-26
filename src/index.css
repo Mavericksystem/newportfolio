@@ -96,3 +96,7 @@ section {
 .text-15 {
   font-size: 15px;
 }
+
+.scramble-glitch {
+  color: rgba(238, 243, 243, 0.7);
+}
