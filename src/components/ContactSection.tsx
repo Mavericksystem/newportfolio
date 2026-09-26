@@ -1,416 +1,127 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Plane } from "lucide-react";
+import { MapPin } from "lucide-react";
 import {
-  Send,
   Clock,
   Globe,
-  CheckCircle,
-  ArrowRight
 } from 'lucide-react';
 import { MdOutlineMarkEmailUnread } from 'react-icons/md';
 import { FiMapPin } from 'react-icons/fi';
 import { FaLinkedinIn } from 'react-icons/fa';
-import { FiMessageCircle } from 'react-icons/fi';
 
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
   const contactInfo = [
     {
       icon: MdOutlineMarkEmailUnread,
       label: 'Email',
       value: 'moinaktarshaikh@gmail.com',
       href: 'mailto:moinaktarshaikh@gmail.com',
-      gradient: 'from-gray-300 via-gray-600 to-gray-800',
-      description: 'Drop me a line anytime'
     },
     {
       icon: FiMapPin,
       label: 'Location',
-      value: 'Bengaluru, karnataka',
-      gradient: 'from-gray-300 via-gray-600 to-gray-800',
-      description: 'BTM Layout. Madiwala'
+      value: 'Bengaluru, BTM Layout · Madiwala',
     },
     {
       icon: FaLinkedinIn,
       label: 'LinkedIn',
       value: 'Connect with me',
       href: 'https://www.linkedin.com/in/moinaktar-shaikh-7b3a33207/',
-      gradient: 'from-gray-300 via-gray-600 to-gray-800',
-      description: 'Professional network'
-    }
+    },
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("https://formspree.io/f/manbrogj", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong.");
-    }
-
-    setIsSubmitting(false);
-    setTimeout(() => setSubmitted(false), 5000);
-  };
-
-
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
-      {/* Background overlay removed - using global background from App.tsx */}
-
+    <section id="contact" className="py-20 md:py-30 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0">
         <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-20 right-10 w-16 h-16 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl backdrop-blur-sm"
         />
         <motion.div
-          animate={{
-            y: [0, 15, 0],
-            rotate: [0, -3, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
+          animate={{ y: [0, 15, 0], rotate: [0, -3, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute bottom-40 left-10 w-12 h-12 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-xl backdrop-blur-sm"
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Let's <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Connect</span>
+          <h2 className="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white md:text-5xl mb-4">
+            Let's Work Together
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Open to exciting projects and new opportunities let’s collaborate and explore how we can create impact together.
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+            Have a project in mind, or just want to talk shop? Pick a slot below.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.25 }}
-            className="space-y-8"
-          >
-
-
-            <div className="space-y-6">
-              {contactInfo.map((item) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.2 }}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  className="group relative"
-                >
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex items-center space-x-4 p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-2xl border border-white/30 dark:border-gray-700/40 shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                      <div className={`w-12 h-12 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-inner border border-indigo-700/50`}>
-                        <item.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {item.label}
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 font-medium">
-                          {item.value}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-500">
-                          {item.description}
-                        </p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200" />
-                    </a>
-                  ) : (
-                    <div className="flex items-center space-x-4 p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-2xl border border-white/30 dark:border-gray-700/40 shadow-lg">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center shadow-inner border border-indigo-700/50`}>
-                        <item.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {item.label}
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 font-medium">
-                          {item.value}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-500">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Quick Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="grid grid-cols-3 gap-4 pt-8"
-            >
-              <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
-                <Clock className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">24h</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Response Time</div>
+        {/* Compact info row — email / location / linkedin, plus quick stats. */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid sm:grid-cols-3 gap-3"
+        >
+          {contactInfo.map((item) => {
+            const content = (
+              <div className="flex items-center gap-3 px-4 py-3 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-2xl border border-white/30 dark:border-gray-700/40 h-full">
+                <item.icon className="w-5 h-5 text-gray-700 dark:text-gray-300 shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs text-gray-500 dark:text-gray-500">{item.label}</div>
+                  <div className="text-sm font-medium text-gray-900 dark:text-white truncate">{item.value}</div>
+                </div>
               </div>
+            );
 
-              <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
-                <Globe className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">Remote</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Work Ready</div>
-              </div>
+            return item.href ? (
+              <a
+                key={item.label}
+                href={item.href}
+                target={item.href.startsWith('http') ? '_blank' : undefined}
+                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="block hover:scale-[1.02] transition-transform duration-200"
+              >
+                {content}
+              </a>
+            ) : (
+              <div key={item.label}>{content}</div>
+            );
+          })}
+        </motion.div>
 
-              <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
-                <MapPin className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">Relocation</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">India & Global</div>
-              </div>
-            </motion.div>
-          </motion.div >
-
-          {/* Contact Form */}
-          < motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            whileHover={{ scale: 1.02, x: 5 }}
-            className="relative bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/30 dark:border-gray-700/40"
-          >
-            {/* style={{ transformStyle: 'preserve-3d', willChange: 'transform' }} */}
-
-            {/* Header */}
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-gray-300 via-gray-600 to-gray-800 rounded-xl flex items-center justify-center shadow-inner border border-gray-400/50">
-                <FiMessageCircle className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Send Message
-              </h3>
-            </div>
-
-            {/* Conditional Message */}
-            {
-              submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Message Sent Successfully!
-                  </h4>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Thank you for reaching out. I'll get back to you within 24 hours.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name & Email */}
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                        placeholder="Your Name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Subject */}
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                      placeholder="What's this about?"
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none"
-                      placeholder="Tell me about your project or just say hello!"
-                    />
-                  </div>
-
-                  {/* Submit */}
-                  <div className="flex justify-center pt-2">
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="relative inline-flex items-center justify-center gap-2 rounded-full px-8 text-white font-semibold cursor-pointer group disabled:opacity-70 disabled:cursor-not-allowed"
-                      style={{
-                        fontSize: '15px',
-                        fontWeight: 600,
-                        lineHeight: 1,
-                        letterSpacing: '-.02em',
-                        height: '48px',
-                        WebkitFontSmoothing: 'antialiased',
-                        background: '#000000',
-                        minWidth: '200px',
-                      }}
-                    >
-                      {/* Border gradient overlay */}
-                      <span
-                        className="absolute rounded-full pointer-events-none"
-                        style={{
-                          inset: '-1px -1px -1.5px -1px',
-                          backgroundImage: 'linear-gradient(180deg, #fcc171, #c17c56 55%, #362821)',
-                        }}
-                      />
-
-                      {/* Main black background */}
-                      <span
-                        className="absolute inset-0 rounded-full pointer-events-none"
-                        style={{ background: '#000000' }}
-                      />
-
-                      {/* Top radial glow */}
-                      <span
-                        className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-                        style={{
-                          top: '-6px',
-                          bottom: '20%',
-                          width: '90%',
-                          backgroundImage: 'radial-gradient(ellipse 40% 40% at 50% 10%, rgba(255, 223, 150, 0.7) 10%, rgba(255, 195, 90, 0.4) 50%, rgba(255, 160, 60, 0.15) 80%, transparent 100%)',
-                          mixBlendMode: 'screen',
-                          filter: 'blur(1px)',
-                        }}
-                      />
-
-                      {/* Content */}
-                      {isSubmitting ? (
-                        <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full relative z-10"
-                          />
-                          <span className="relative z-10">Sending...</span>
-                        </>
-                      ) : (
-                        <>
-                          <motion.div whileHover={{ x: 3, y: -3 }} transition={{ duration: 0.2 }}>
-                            <Send className="w-5 h-5 relative z-10" />
-                          </motion.div>
-                          <span className="relative z-10">Send Message</span>
-                        </>
-                      )}
-                    </motion.button>
-                  </div>
-                </form>
-              )
-            }
-          </motion.div >
-        </div >
-      </div >
-    </section >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-4 grid grid-cols-3 gap-3"
+        >
+          <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
+            <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mx-auto mb-2" />
+            <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">24h</div>
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Response Time</div>
+          </div>
+          <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
+            <Globe className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mx-auto mb-2" />
+            <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">Remote</div>
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Work Ready</div>
+          </div>
+          <div className="text-center p-3 sm:p-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-xl border border-white/30 dark:border-gray-700/40">
+            <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600 mx-auto mb-2" />
+            <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">Relocation</div>
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">India & Global</div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 export default ContactSection;
