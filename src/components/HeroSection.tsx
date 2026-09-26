@@ -13,7 +13,7 @@ const HeroSection = () => {
 
     const element = wordRef.current;
 
-    const chars = "!<>\\/[]{}=+*^?#01";
+    const chars = "!<>-_\\/[]{}—=+*^?#________";
     let frameId: number;
     let timeoutId: ReturnType<typeof setTimeout>;
     let frame = 0;
@@ -26,13 +26,14 @@ const HeroSection = () => {
     // Tuning knobs for the cascade effect
     const CHAR_STAGGER = 18; // frames between each character starting to scramble
     const SCRAMBLE_LENGTH = 40; // frames each character stays scrambling before locking in
-    const GLITCH_SWAP_EVERY = 41; // swap the glitch character every N frames
+    const GLITCH_SWAP_EVERY = 4; // swap the glitch character every N frames
 
     const scrambleTo = (newText: string): Promise<void> => {
       const oldText = currentText;
       const length = Math.max(oldText.length, newText.length);
 
-
+      // Each character starts in sequence (index-based stagger) so the
+      // resolve happens left-to-right instead of all at once.
       const queue = Array.from({ length }, (_, i) => {
         const from = oldText[i] || "";
         const to = newText[i] || "";
@@ -129,11 +130,6 @@ const HeroSection = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/background.png')" }}
-      />
       <video
         aria-hidden="true"
         autoPlay
@@ -141,9 +137,8 @@ const HeroSection = () => {
         muted
         playsInline
         preload="auto"
-        poster="/background.png"
         onCanPlay={() => setVideoReady(true)}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${videoReady ? "opacity-100" : "opacity-0"
+        className={`absolute inset-0 h-full w-full object-cover bg-black transition-opacity duration-1000 ease-out ${videoReady ? "opacity-100" : "opacity-0"
           }`}
       >
         <source src="/backgroundv.mp4" type="video/mp4" />
