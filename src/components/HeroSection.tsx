@@ -31,12 +31,21 @@ const HeroSection = () => {
       const oldText = currentText;
       const length = Math.max(oldText.length, newText.length);
 
-      // Each character starts in sequence (index-based stagger) so the
-      // resolve happens left-to-right instead of all at once.
+      // Shuffle the character indices (Fisher–Yates) so the resolve order is
+      const order = Array.from({ length }, (_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      const rank: number[] = new Array(length);
+      order.forEach((charIndex, position) => {
+        rank[charIndex] = position;
+      });
+
       const queue = Array.from({ length }, (_, i) => {
         const from = oldText[i] || "";
         const to = newText[i] || "";
-        const start = i * CHAR_STAGGER;
+        const start = rank[i] * CHAR_STAGGER;
         const end = start + SCRAMBLE_LENGTH;
 
         return {
