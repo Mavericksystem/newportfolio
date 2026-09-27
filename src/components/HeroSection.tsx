@@ -109,7 +109,7 @@ const HeroSection = () => {
       });
     };
 
-    const words = ["Build", "Architect", "Scale"];
+    const words = ["Architect", "Build", "Scale"];
     let index = 0;
 
     const next = async () => {
