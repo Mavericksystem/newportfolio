@@ -18,9 +18,7 @@ import { openCalModal, useCalEmbedScript, CAL_LINKS } from '../lib/cal-embed';
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // Loaded here so the popup can open instantly on first tap, on both
-  // mobile and desktop — window.Cal queues calls even before the actual
-  // script tag has finished loading.
+
   useCalEmbedScript();
 
   useEffect(() => {
@@ -32,10 +30,7 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close the mobile menu once the Cal.com popup is dismissed, instead of
-  // closing it at the moment the popup opens. Closing the menu synchronously
-  // in the same click that opens the modal was racing the mobile menu's own
-  // close animation on-device and the modal never actually appeared.
+
   useEffect(() => {
     const handleCalClosed = () => setIsOpen(false);
     window.addEventListener('cal:embed-closed', handleCalClosed);
@@ -65,13 +60,7 @@ const Navigation = () => {
     setIsOpen(false);
   };
 
-  // "Contact" opens the Cal.com video-call popup directly (not via
-  // data-cal-link) because the mobile menu button only exists in the DOM
-  // while the menu is open — Cal's script only auto-binds elements present
-  // at the moment it finishes loading, so a conditionally-rendered button
-  // like this one never gets bound that way. We deliberately do NOT close
-  // the mobile menu here; it closes on its own once the popup is dismissed
-  // (see the cal:embed-closed listener above).
+
   const handleContactTap = () => {
     openCalModal(CAL_LINKS.videoCall);
   };
@@ -106,7 +95,7 @@ const Navigation = () => {
           ease: [0.22, 1, 0.36, 1]
         }}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled
-          ? 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border-b border-white/20 dark:border-gray-700/30'
+          ? 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl'
           : 'bg-white/5 dark:bg-gray-900/5 backdrop-blur-md'
           }`}
       >
